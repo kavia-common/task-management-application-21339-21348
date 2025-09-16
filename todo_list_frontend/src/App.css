@@ -1,104 +1,445 @@
-/* CSS Variables for Theme Management */
+/* Ocean Professional Theme Variables */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --primary: #2563EB;      /* Blue */
+  --amber: #F59E0B;        /* Amber */
+  --error: #EF4444;
+  --bg: #f9fafb;           /* Background */
+  --surface: #ffffff;      /* Cards / surfaces */
+  --text: #111827;         /* Primary text */
+  --muted: #6B7280;        /* Muted text */
+
+  --ring: rgba(37, 99, 235, 0.35);
+  --shadow: 0 10px 20px rgba(17, 24, 39, 0.08), 0 2px 6px rgba(17, 24, 39, 0.06);
+  --shadow-soft: 0 8px 16px rgba(17, 24, 39, 0.06), 0 1px 3px rgba(17, 24, 39, 0.06);
+
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-lg: 18px;
+
+  --grad-start: rgba(59, 130, 246, 0.08); /* blue-500/10 */
+  --grad-end: #f9fafb; /* gray-50 */
 }
 
 [data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+  --bg: #0b1220;
+  --surface: #0f172a;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --ring: rgba(59, 130, 246, 0.5);
+  --shadow: 0 10px 22px rgba(2, 6, 23, 0.7), 0 2px 6px rgba(2, 6, 23, 0.6);
+  --shadow-soft: 0 8px 16px rgba(2, 6, 23, 0.6), 0 1px 3px rgba(2, 6, 23, 0.6);
 }
 
-.App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* Base */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: linear-gradient(180deg, var(--grad-start), var(--grad-end));
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, Apple Color Emoji, Segoe UI Emoji;
+  line-height: 1.4;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App.ocean-app {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Header */
+.ocean-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0)) ;
+  backdrop-filter: saturate(1.1) blur(8px);
+  padding: 32px 20px 16px;
 }
 
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+[data-theme="dark"] .ocean-header {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0));
+}
+
+.ocean-header-top {
+  max-width: 920px;
+  margin: 0 auto 8px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  justify-content: space-between;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.ocean-title {
+  margin: 0;
+  letter-spacing: 0.2px;
+  font-weight: 800;
+  font-size: clamp(22px, 4vw, 28px);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
+.ocean-title-accent {
+  color: var(--primary);
+  font-size: 22px;
+  filter: drop-shadow(0 2px 6px rgba(37,99,235,0.35));
+}
+
+.ocean-subtitle {
+  max-width: 920px;
+  margin: 2px auto 18px;
+  color: var(--muted);
   font-size: 14px;
-  font-weight: 600;
+}
+
+/* Input Row */
+.ocean-input-row {
+  max-width: 920px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+}
+
+.ocean-input {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: var(--radius);
+  color: var(--text);
+  outline: none;
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+[data-theme="dark"] .ocean-input {
+  border-color: rgba(148, 163, 184, 0.12);
+}
+
+.ocean-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--ring), var(--shadow);
+  transform: translateY(-1px);
+}
+
+.ocean-input::placeholder {
+  color: var(--muted);
+}
+
+/* Buttons */
+.ocean-btn {
+  border: 0;
+  border-radius: var(--radius);
+  padding: 12px 18px;
+  font-weight: 700;
+  letter-spacing: .2px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 140ms ease, box-shadow 140ms ease, opacity 140ms ease, background-color 140ms ease;
+  box-shadow: var(--shadow);
+}
+
+.ocean-btn:active { transform: translateY(0); }
+
+.ocean-btn.small {
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.ocean-btn-primary {
+  background: linear-gradient(180deg, #2b6fee, var(--primary));
+  color: #fff;
+}
+
+.ocean-btn-primary:hover { transform: translateY(-1px); }
+
+.ocean-btn-amber {
+  background: linear-gradient(180deg, #f8b74f, var(--amber));
+  color: #1f2937;
+}
+
+.ocean-btn-amber.ghost {
+  background: transparent;
+  color: var(--amber);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  box-shadow: none;
+}
+
+.ocean-btn-danger {
+  background: linear-gradient(180deg, #f87171, var(--error));
+  color: #fff;
+}
+
+.ocean-btn-danger.ghost {
+  background: transparent;
+  color: var(--error);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  box-shadow: none;
+}
+
+.ocean-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Theme toggle (kept from boilerplate but restyled) */
+.theme-toggle {
+  background: linear-gradient(180deg, #3b82f6, var(--primary));
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
 }
 
 .theme-toggle:hover {
+  transform: translateY(-1px);
+}
+
+/* Toolbar */
+.ocean-toolbar {
+  max-width: 920px;
+  margin: 16px auto 0;
+  padding: 10px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ocean-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ocean-chip {
+  background: var(--surface);
+  color: var(--muted);
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  transition: transform 120ms ease, box-shadow 120ms ease, color 120ms ease, border-color 120ms ease, background-color 120ms ease;
+}
+
+[data-theme="dark"] .ocean-chip {
+  border-color: rgba(148, 163, 184, 0.12);
+}
+
+.ocean-chip:hover {
+  transform: translateY(-1px);
+}
+
+.ocean-chip.active {
+  color: var(--primary);
+  border-color: rgba(37, 99, 235, 0.35);
+  box-shadow: 0 0 0 4px var(--ring), var(--shadow-soft);
+}
+
+/* Stats */
+.ocean-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ocean-remaining {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Main */
+.ocean-main {
+  padding: 10px 20px 28px;
+}
+
+.ocean-list {
+  max-width: 920px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  min-height: 220px;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .ocean-list {
+  border-color: rgba(148, 163, 184, 0.12);
+}
+
+/* Todos */
+.ocean-todos {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  max-height: calc(100vh - 330px);
+  overflow-y: auto;
+}
+
+.ocean-todo {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin: 8px;
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.03), rgba(255,255,255,1));
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  border-radius: var(--radius);
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease, background-color 120ms ease;
+}
+
+[data-theme="dark"] .ocean-todo {
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.08), rgba(15, 23, 42, 0.9));
+  border-color: rgba(148, 163, 184, 0.12);
+}
+
+.ocean-todo:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+  box-shadow: var(--shadow-soft);
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.ocean-todo.done {
+  opacity: 0.85;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.ocean-todo.done .ocean-todo-text {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+/* Checkbox */
+.ocean-checkbox {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ocean-checkbox input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.ocean-checkbox-box {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid rgba(17, 24, 39, 0.25);
+  background: var(--surface);
+  display: inline-block;
+  transition: all 160ms ease;
+  box-shadow: var(--shadow-soft);
+}
+
+[data-theme="dark"] .ocean-checkbox-box {
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.ocean-checkbox input:checked + .ocean-checkbox-box {
+  background: linear-gradient(180deg, #2b6fee, var(--primary));
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--ring), var(--shadow);
+  position: relative;
+}
+
+.ocean-checkbox input:checked + .ocean-checkbox-box::after {
+  content: '';
+  position: absolute;
+  left: 6px; top: 2px;
+  width: 6px; height: 12px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Todo text */
+.ocean-todo-text {
+  font-size: 16px;
+  color: var(--text);
+  user-select: none;
+}
+
+/* Actions */
+.ocean-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Edit Input */
+.ocean-edit-input {
+  padding: 10px 12px;
+}
+
+/* Empty state */
+.ocean-empty {
+  padding: 48px 16px 52px;
+  display: grid;
+  place-items: center;
+}
+
+.ocean-empty-badge {
+  display: inline-block;
+  background: linear-gradient(180deg, #dbeafe, #eff6ff);
+  color: #1e3a8a;
+  border: 1px solid rgba(37, 99, 235, 0.35);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+[data-theme="dark"] .ocean-empty-badge {
+  background: linear-gradient(180deg, rgba(30,58,138,.5), rgba(30,58,138,.35));
+  color: #dbeafe;
+}
+
+.ocean-empty-text {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Footer */
+.ocean-footer {
+  padding: 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.ocean-brand {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .ocean-input-row {
+    grid-template-columns: 1fr;
   }
-  to {
-    transform: rotate(360deg);
+  .ocean-toolbar {
+    flex-direction: column;
+    align-items: stretch;
   }
-}
-
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+  .ocean-stats {
+    justify-content: space-between;
   }
 }

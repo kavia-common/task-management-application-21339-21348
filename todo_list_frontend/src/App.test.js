@@ -1,8 +1,16 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders header and allows adding a todo', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  // Header title
+  expect(screen.getByText(/Ocean Tasks/i)).toBeInTheDocument();
+
+  // Add a todo
+  const input = screen.getByPlaceholderText(/Add a new task/i);
+  fireEvent.change(input, { target: { value: 'Test Task' } });
+  fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+
+  expect(screen.getByText('Test Task')).toBeInTheDocument();
 });
